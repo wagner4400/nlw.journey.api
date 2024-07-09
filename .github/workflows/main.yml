@@ -21,7 +21,7 @@ jobs:
         id: generate_sha
         run: |
           SHA=$(echo $GITHUB_SHA | head -c7)
-          ECHO "sha=$SHA" >> $GITHUB_OUTPUT
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
 
         # gerar tag de acordo com o commit
       - name: Build docker image
