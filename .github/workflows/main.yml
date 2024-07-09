@@ -16,7 +16,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-        # obtem os 7 primeiros códigos do commit
+      # instala o go no ambiente
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.x'
+
+      # executa os testes
+      - name: Run tests
+        run: go test  
+        
+      # obtem os 7 primeiros códigos do commit
       - name: Generate SHA
         id: generate_sha
         run: |
