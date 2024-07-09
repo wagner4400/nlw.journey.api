@@ -29,11 +29,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      # gerar imagem de acordo com o commit
+      - name: Push Image
+        run: docker build -t wagner4400/nlw.journey.api:${{ steps.generate_sha.outputs.sha }} . 
 
         # gerar tag de acordo com o commit
       - name: Build docker image
-        run: docker build -t wagner4400/nlw.journey.api:${{ steps.generate_sha.outputs.sha }} .
+        run: |
+          docker build -t wagner4400/nlw.journey.api:${{ steps.generate_sha.outputs.sha }} .
+          docker tag wagner4400/nlw.journey.api:${{ steps.generate_sha.outputs.sha }} wagner4400/nlw.journey.api:latest
+          docker push wagner4400/nlw.journey.api:latest
       
-    
+  
           
     #enviar imagem após
