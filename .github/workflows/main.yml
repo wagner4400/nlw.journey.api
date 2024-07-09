@@ -15,5 +15,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+        # obtem os 7 primeiros códigos do commit
+      - name: Generate SHA
+        id: generate_sha
+        run: |
+          SHA=$(echo $GITHUB_SHA | head -c7)
+          ECHO "sha=$SHA" >> $GITHUB_OUTPUT
+
+        # gerar tag de acordo com o commit
       - name: Build docker image
-        run: docker build -t wagner4400/nlw.journey.api:latest .
+        run: docker build -t wagner4400/nlw.journey.api:${{ steps.generate_sha.outputs.sha }} .
+
+    # logar no container retristry
+
+    #enviar imagem após
